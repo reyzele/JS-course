@@ -101,11 +101,11 @@ function returnArgumentsArray() {
  */
 
 function bindFunction(fn) {
-  let arr = [].slice.call(arguments, 1);
+  let args = [].slice.call(arguments, 1);
 
   return function () {
 
-    return fn.apply(null, arr);
+    return fn.apply(null, args);
   }
 }
 
