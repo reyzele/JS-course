@@ -24,6 +24,7 @@ function map(array, fn) {
   for (let i = 0; i < array.length; i++) {
     newArr.push(fn(array[i], i, array))
   }
+
   return newArr;
 }
 
@@ -65,8 +66,11 @@ function upperProps(obj) {
   let arr = [];
 
   for (let key in obj) {
-    let UpperCase = key.toUpperCase();
-    arr.push(UpperCase);
+    if (obj.hasOwnProperty(key)) {
+      let UpperCase = key.toUpperCase();
+
+      arr.push(UpperCase);
+    }
   }
 
   return arr;
@@ -118,7 +122,6 @@ function slice(array, from, to) {
  Proxy должен перехватывать все попытки записи значений свойств и возводить это значение в квадрат
  */
 function createProxy(obj) {
-
 }
 
 export {
