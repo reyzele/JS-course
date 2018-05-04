@@ -117,31 +117,35 @@ function calculator(number = 0, ...args) {
 
   let obj = {
     sum: function (...args) {
+      let result = number;
       for (let i = 0; i < arguments.length; i++) {
-        number += arguments[i];
+        result += arguments[i];
       }
-      return number;
+      return result;
     },
     dif: function (...args) {
+      let result = number;
       for (let i = 0; i < arguments.length; i++) {
-        number -= arguments[i];
+        result -= arguments[i];
       }
-      return number;
+      return result;
     },
     div: function (...args) {
+      let result = number;
       for (let i = 0; i < arguments.length; i++) {
         if (arguments[i] === 0) {
           throw new Error('division by 0');
         }
-        number /= arguments[i];
+        result /= arguments[i];
       }
-      return number;
+      return result;
     },
     mul: function (...args) {
+      let result = number;
       for (let i = 0; i < arguments.length; i++) {
-        number *= arguments[i];
+        result *= arguments[i];
       }
-      return number;
+      return result;
     }
   };
 
