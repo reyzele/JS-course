@@ -9,3 +9,4 @@ dist/
 node_modules/
 coverage/
 src/test.js
+src/index.html
