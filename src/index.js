@@ -116,44 +116,23 @@ function calculator(number = 0) {
   }
 
   let obj = {
-    sum: function () {
-      let result = number;
-
-      for (let i = 0; i < arguments.length; i++) {
-        result += arguments[i];
-      }
-
-      return result;
+    sum: function (...args) {
+      return args.reduce((a, b) => a + b, number)
     },
-    dif: function () {
-      let result = number;
-
-      for (let i = 0; i < arguments.length; i++) {
-        result -= arguments[i];
-      }
-
-      return result;
+    dif: function (...args) {
+      return args.reduce((a, b) => a - b, number)
     },
-    div: function () {
-      let result = number;
-
-      for (let i = 0; i < arguments.length; i++) {
-        if (arguments[i] === 0) {
+    div: function (...args) {
+      return args.reduce((a, b) => {
+        if (b === 0) {
           throw new Error('division by 0');
         }
-        result /= arguments[i];
-      }
 
-      return result;
+        return a / b;
+      }, number)
     },
-    mul: function () {
-      let result = number;
-
-      for (let i = 0; i < arguments.length; i++) {
-        result *= arguments[i];
-      }
-      
-      return result;
+    mul: function (...args) {
+      return args.reduce((a, b) => a * b, number)
     }
   };
 
