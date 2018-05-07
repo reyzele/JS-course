@@ -19,13 +19,13 @@ function forEach(array, fn) {
  Посмотрите как работает map и повторите это поведение для массива, который будет передан в параметре array
  */
 function map(array, fn) {
-  let newArr = [];
+  let result = [];
 
   for (let i = 0; i < array.length; i++) {
-    newArr.push(fn(array[i], i, array))
+    result.push(fn(array[i], i, array))
   }
 
-  return newArr;
+  return result;
 }
 
 /*
@@ -37,7 +37,7 @@ function map(array, fn) {
 function reduce(array, fn, initialValue = array[0]) {
   let result;
 
-  for (let i = (initialValue !== array[0]) ? 0 : 1; i < array.length; i++) {
+  for (let i = initialValue !== array[0] ? 0 : 1; i < array.length; i++) {
     initialValue = fn(initialValue, array[i], i, array);
   }
   result = initialValue;
