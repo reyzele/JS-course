@@ -37,6 +37,39 @@ const homeworkContainer = document.querySelector('#homework-container');
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
  */
 function loadTowns() {
+  filterBlock.style.display = 'none';
+  loadingBlock.innerHTML = 'Загрузка...';
+
+  return fetch(
+    'https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json'
+  )
+    .then(response => {
+      loadingBlock.innerHTML = 'Загрузка...';
+
+      return !response.ok ? response.error() : response;
+    })
+    .then(response => response.json())
+    .then(data =>
+      data.sort(
+        (a, b) =>
+          a.name < b.name ? -1 : a.name > b.name ? 1 : 0
+      )
+    )
+    .catch(function () {
+      let button = document.createElement('button');
+
+      filterResult.innerHTML = '';
+      button.addEventListener('click', () =>
+        filterInput.dispatchEvent(new Event('keyup'))
+      );
+      button.append('Повторить');
+      filterResult.append(
+        'Не удалось загрузить города',
+        document.createElement('br'),
+        document.createElement('br')
+      );
+      filterResult.append(button);
+    });
 }
 
 /*
@@ -51,6 +84,8 @@ function loadTowns() {
    isMatching('Moscow', 'Moscov') // false
  */
 function isMatching(full, chunk) {
+
+  return chunk ? full.toLowerCase().includes(chunk.toLowerCase()) : false;
 }
 
 /* Блок с надписью "Загрузка" */
@@ -62,11 +97,35 @@ const filterInput = homeworkContainer.querySelector('#filter-input');
 /* Блок с результатами поиска */
 const filterResult = homeworkContainer.querySelector('#filter-result');
 
-filterInput.addEventListener('keyup', function() {
-    // это обработчик нажатия кливиш в текстовом поле
+filterInput.addEventListener('keyup', function (e) {
+  loadTowns().then(towns => {
+    let target = e.target.value;
+
+    filterResult.innerHTML = '';
+
+    if (towns != undefined) {
+      towns.forEach(element => {
+        if (isMatching(element.name, target)) {
+          let item = document.createElement('div');
+
+          item.style.cursor = 'pointer';
+          item.innerText = element.name;
+          filterResult.appendChild(item);
+          item.addEventListener('click', (e) => {
+            let result = e.target.textContent;
+
+            filterInput.value = result;
+            filterResult.innerHTML = '';
+          })
+        }
+      });
+    } else {
+      loadTowns();
+    }
+  });
 });
 
 export {
-    loadTowns,
-    isMatching
+  loadTowns,
+  isMatching
 };
