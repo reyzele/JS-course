@@ -67,6 +67,18 @@ addButton.addEventListener('click', () => {
   getCookies();
 });
 
+addNameInput.addEventListener('change', () => {
+  if (addNameInput.value) {
+    addButton.dispatchEvent(new Event('click'))
+  }
+});
+
+addValueInput.addEventListener('change', () => {
+  if (addValueInput.value) {
+    addButton.dispatchEvent(new Event('click'))
+  }
+});
+
 function getCookies() {
   if (document.cookie != '') {
     cookieObj = document.cookie.split('; ').reduce((prev, current) => {
